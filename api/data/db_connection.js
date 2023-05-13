@@ -1,9 +1,14 @@
-var mysql = require('mysql');
-var connection = mysql.createConnection({
+const mysql = require('mysql');
+const fs = require('fs');
+
+const connection = mysql.createConnection({
   host: process.env.HOST,
   database: process.env.DATABASE,
   user: process.env.USER,
   password: process.env.PSSWRD,
+  ssl: {
+    ca: fs.readFileSync('DigiCertGlobalRootCA.crt.pem') ,
+  }
 });
 
 connection.connect(function(err) {

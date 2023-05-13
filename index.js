@@ -24,11 +24,11 @@ app.use(express.static('./page/src'));
 app.use(require('./page/page.js'));
 
 //Rutas Auth - Basic Auth
-app.use('/auth', require('./api/services/auth.js'));
+app.use('/auth', require('./api/services/auth_ws.js'));
 
 //Rutas API - Token Auth
-app.use('/api/users', require('./api/services/user.js'));
-app.use('/api/books', require('./api/services/book.js'));
+app.use('/api/users', require('./api/services/user_ws.js'));
+app.use('/api/books', require('./api/services/book_ws.js'));
 
 // Endpoint WildCard
 app.all('*', (req, res) => {

@@ -1,4 +1,4 @@
-//const connection = require('./db_connection');
+const connection = require('./db_connection');
 
 function obtenerUsuarios(nombreUsuario, contrasenia) {
   return new Promise((resolve, reject) => {
