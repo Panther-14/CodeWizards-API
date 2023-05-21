@@ -30,9 +30,10 @@ function registroUsuario(user) {
 
 function obtenerUsuario(nombreUsuario) {
   return new Promise((resolve, reject) => {
-    const sql = 'SELECT idUsuarios, username, nombre, apellidoPaterno, apellidoMaterno, email, tipoUsuario FROM usuarios WHERE nombre_usuario = ?';
+    const sql = 'SELECT idUsuarios, username, nombre, apellidoPaterno, apellidoMaterno, email, tipoUsuario FROM usuarios WHERE username LIKE ? OR nombre LIKE ?';
+    const values = [`%${nombreUsuario}%`, `%${nombreUsuario}%`];
 
-    connection.query(sql, nombreUsuario, (error, results, fields) => {
+    connection.query(sql, values, (error, results, fields) => {
       if (error) {
         reject(error);
       }
