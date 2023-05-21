@@ -54,9 +54,24 @@ function obtenerPerfilUsuario(nombreUsuario) {
   });
 }
 
+
+function obtenerEmailTodosUsuarios() {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT email FROM usuarios';
+
+    connection.query(sql, nombreUsuario, (error, results, fields) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(results);
+    });
+  });
+}
+
 module.exports = {
   accederUsuario,
   registroUsuario,
   obtenerUsuario,
-  obtenerPerfilUsuario
+  obtenerPerfilUsuario,
+  obtenerEmailTodosUsuarios
 };

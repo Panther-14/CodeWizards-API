@@ -44,10 +44,21 @@ async function seeProfile(username) {
   }
 }
 
+async function getAllUsersEmail() {
+  try {
+    const resultados = await UserDAO.obtenerEmailTodosUsuarios();
+    return resultados;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
+
 module.exports = {
   loginUser,
   registerUser,
   updatePassword,
   findUser,
-  seeProfile
+  seeProfile,
+  getAllUsersEmail
 };

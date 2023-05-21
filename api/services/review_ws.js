@@ -7,12 +7,16 @@ router.use(verifyToken);
 
 //Visualizar Reseñas
 router.get('/all', (req, res) => {
-  const idbook = req.params.idbook;
   res.json({ test: "Hola!!", idbook: idbook });
 });
 
-//Visualizar Reseña
-router.get('/reviews/:idbook', (req, res) => {
+//Visualizar Reseñas reportadas
+router.get('/reported', (req, res) => {
+  res.json({ test: "Hola!!", idbook: idbook });
+});
+
+//Visualizar Reseñas por libro
+router.get('/book/:idbook', (req, res) => {
   const idbook = req.params.idbook;
   res.json({ test: "Hola!!", idbook: idbook });
 });
@@ -23,7 +27,7 @@ router.put('/leavereview', (req, res) => {
 });
 
 //Delete Review
-router.post('/deletereview', (req, res) => {
+router.delete('/deletereview', (req, res) => {
   res.json({ test: "Hola!!" });
 });
 
