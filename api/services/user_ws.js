@@ -31,13 +31,31 @@ router.post('/deleteprofile', (req, res) => {
 //Buscar Perfil
 router.get('/finduser/:username', (req, res) => {
   const username = req.params.username;
-  res.json({test: "Hola!!"});
+  
+  Business.findUser(username)
+    .then((resultados) => {
+      console.log('Resultados:', resultados);
+      if(resultados.length > 0){
+        res.status(200).json({ error: false, message: 'Consulta exitosa', resultados: resultados});
+      }else{
+        res.status(200).json({ error: false, message: 'Nada que mostrar', resultados: resultados});
+      }
+    });
 });
 
 //Consultar Perfil
 router.get('/profile/:username', (req, res) => {
   const username = req.params.username;
-  res.json({test: "Hola!!"});
+  
+  Business.findUser(username)
+    .then((resultados) => {
+      console.log('Resultados:', resultados);
+      if(resultados.length > 0){
+        res.status(200).json({ error: false, message: 'Consulta exitosa', resultados: resultados});
+      }else{
+        res.status(200).json({ error: false, message: 'Nada que mostrar', resultados: resultados});
+      }
+    });
 });
 
 //Consultar Biblioteca

@@ -5,6 +5,7 @@ const verifyToken = require('../security/tkn_auth');
 
 router.use(verifyToken);
 
+//Obtener todos los libros
 router.get('/', (req, res) => {
   res.json({ libros: 'Overlord' });
 });
@@ -24,21 +25,6 @@ router.post('/deletebook', (req, res) => {
   res.json({ libros: 'Overlord' });
 });
 
-//Escribir Reseña
-router.put('/leavereview', (req, res) => {
-  res.json({ libros: 'Overlord' });
-});
-
-//Delete Review
-router.post('/deletereview', (req, res) => {
-  res.json({ test: "Hola!!" });
-});
-
-//Reportar Reseña
-router.post('/reportreview', (req, res) => {
-  res.json({ test: "Hola!!" });
-});
-
 //Calificar Libro
 router.post('/reviewbook', (req, res) => {
   res.json({ test: "Hola!!" });
@@ -54,12 +40,6 @@ router.get('/findbook/:bookname', (req, res) => {
 router.get('/book/:bookname', (req, res) => {
   const bookname = req.params.bookname;
   res.json({ test: "Hola!!", book: bookname });
-});
-
-//Visualizar Reseña
-router.get('/reviews/:idbook', (req, res) => {
-  const idbook = req.params.idbook;
-  res.json({ test: "Hola!!", idbook: idbook });
 });
 
 module.exports = router;

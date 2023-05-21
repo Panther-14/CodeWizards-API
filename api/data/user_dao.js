@@ -1,6 +1,6 @@
 const connection = require('./db_connection');
 
-function obtenerUsuarios(nombreUsuario, contrasenia) {
+function accederUsuario(nombreUsuario, contrasenia) {
   return new Promise((resolve, reject) => {
     const sql = 'SELECT * FROM usuarios WHERE nombre_usuario = ? AND contrasenia = ?';
     const values = [nombreUsuario, contrasenia];
@@ -14,6 +14,49 @@ function obtenerUsuarios(nombreUsuario, contrasenia) {
   });
 }
 
+function registroUsuario(user) {
+  return new Promise((resolve, reject) => {
+    const sql = 'INSERT INTO usuarios SET ?';
+
+    connection.query(sql, user, (error, results) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve(results);
+    });
+  });
+}
+
+function obtenerUsuario(nombreUsuario) {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT idUsuarios, username, nombre, apellidoPaterno, apellidoMaterno, email, tipoUsuario FROM usuarios WHERE nombre_usuario = ?';
+
+    connection.query(sql, nombreUsuario, (error, results, fields) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(results);
+    });
+  });
+}
+
+function obtenerPerfilUsuario(nombreUsuario) {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT idUsuarios, username, nombre, apellidoPaterno, apellidoMaterno, email, tipoUsuario FROM usuarios WHERE nombre_usuario = ?';
+
+    connection.query(sql, nombreUsuario, (error, results, fields) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(results);
+    });
+  });
+}
+
 module.exports = {
-  obtenerUsuarios,
+  accederUsuario,
+  registroUsuario,
+  obtenerUsuario,
+  obtenerPerfilUsuario
 };
