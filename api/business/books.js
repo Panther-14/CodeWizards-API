@@ -1,8 +1,8 @@
 const BookDAO = require('../data/book_dao');
 
-async function getBookDetails(bookName) {
+async function getBookDetails(idbook) {
   try {
-    const resultados = await BookDAO.detallesLibro(bookName);
+    const resultados = await BookDAO.detallesLibro(idbook);
     return resultados;
   } catch (error) {
     console.error(error);

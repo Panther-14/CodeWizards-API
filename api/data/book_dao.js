@@ -1,9 +1,9 @@
 const connection = require('./db_connection');
 
-function detallesLibro(nombreLibro){
+function detallesLibro(idbook){
   return new Promise((resolve,reject) => {
-    const sql = 'SELECT * FROM libros WHERE nombre = ?';
-    const values = [nombreLibro];
+    const sql = 'SELECT * FROM libros WHERE idbook = ?';
+    const values = [idbook];
 
     connection.query(sql, values, (error, results) => {
       if (error) {

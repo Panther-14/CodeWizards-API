@@ -3,6 +3,7 @@ const router = Router();
 
 const verifyToken = require('../security/tkn_auth');
 const BusinessUser = require('../business/users');
+const EmailSender = require('../util/email_sender');
 
 router.use(verifyToken);
 
@@ -42,8 +43,8 @@ router.get('/finduser/:username', (req, res) => {
       }
     })
     .catch((error) => {
-      console.error('Error en el registro:', error);
-      res.status(500).json({ error: true, message: 'Error en el registro' });
+      console.error('Error en la consulta:', error);
+      res.status(500).json({ error: true, message: 'Error en la consulta' });
     });
 });
 
@@ -61,8 +62,8 @@ router.get('/profile/:username', (req, res) => {
       }
     })
     .catch((error) => {
-      console.error('Error en el registro:', error);
-      res.status(500).json({ error: true, message: 'Error en el registro' });
+      console.error('Error en la consulta:', error);
+      res.status(500).json({ error: true, message: 'Error en la consulta' });
     });
 });
 
@@ -79,7 +80,24 @@ router.post('/suggest', (req, res) => {
 
 //Broadcast
 router.post('/broadcast', (req, res) => {
-  res.json({ test: "Hola!!" });
+  BusinessUser.getAllUsersEmail()
+  .then((resultados) => {
+    console.log("Resultados:", resultados);
+    if(resultados.length > 0){
+      EmailSender.sendBroadcastEmail(resultados, subject, body)
+      .then(() => {
+        res.status(200).json({ error: false, message: 'Broadcast Enviado Correctamente'});
+      })
+      .catch((error) => {
+        console.error('Error en el envio:', error);
+        res.status(200).json({ error: false, message: 'Broadcast No Enviado'});
+      });
+    }
+  })
+  .catch((error) => {
+    console.error('Error en la consulta:', error);
+    res.status(500).json({ error: true, message: 'Error en la consulta' });
+  });
 });
 
 module.exports = router;

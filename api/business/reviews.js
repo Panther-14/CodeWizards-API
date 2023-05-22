@@ -1,6 +1,6 @@
 const ReviewDAO = require('../data/review_dao');
 
-async function getReportedReviews(username, password) {
+async function getReportedReviews() {
   try {
     const resultados = await ReviewDAO.obtenerReseniasReportadas();
     return resultados;
@@ -20,9 +20,9 @@ async function deleteReview(idResenia) {
   }
 }
 
-async function leaveReview(idUsuario, resenia) {
+async function leaveReview(idUsuario, resenia,valoracion) {
   try {
-    const resultados = await ReviewDAO.dejarResenia(idUsuario, resenia);
+    const resultados = await ReviewDAO.dejarResenia(idUsuario, resenia,valoracion);
     return resultados;
   } catch (error) {
     console.error(error);
@@ -30,9 +30,19 @@ async function leaveReview(idUsuario, resenia) {
   }
 }
 
-async function reportReview(idUsuario, resenia) {
+async function reportReview(idUsuario, idResenia) {
   try {
-    const resultados = await ReviewDAO.reportarResenia(idUsuario, resenia);
+    const resultados = await ReviewDAO.reportarResenia(idUsuario, idResenia);
+    return resultados;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
+
+async function getBookReviews(idLibro, idResenia) {
+  try {
+    const resultados = await ReviewDAO.obtenerReseniasLibro(idResenia,idLibro);
     return resultados;
   } catch (error) {
     console.error(error);
@@ -44,5 +54,6 @@ module.exports = {
   getReportedReviews,
   deleteReview,
   leaveReview,
-  reportReview
+  reportReview,
+  getBookReviews
 };
