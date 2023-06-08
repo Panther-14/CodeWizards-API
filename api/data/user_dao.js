@@ -44,7 +44,7 @@ function obtenerUsuario(nombreUsuario) {
 
 function obtenerPerfilUsuario(nombreUsuario) {
   return new Promise((resolve, reject) => {
-    const sql = 'SELECT idUsuario, username, nombre, apellidoPaterno, apellidoMaterno, email, tipoUsuario FROM usuarios WHERE nombre_usuario = ?';
+    const sql = 'SELECT idUsuario, username, nombre, apellidoPaterno, apellidoMaterno, email, tipoUsuario FROM usuarios WHERE username = ?';
 
     connection.query(sql, nombreUsuario, (error, results, fields) => {
       if (error) {

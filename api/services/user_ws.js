@@ -37,9 +37,9 @@ router.get('/finduser/:username', (req, res) => {
     .then((resultados) => {
       console.log('Resultados:', resultados);
       if (resultados.length > 0) {
-        res.status(200).json({ error: false, message: 'Consulta exitosa', resultados: resultados });
+        res.status(200).json({ error: false, message: 'Consulta exitosa', usuarios: resultados });
       } else {
-        res.status(200).json({ error: false, message: 'Nada que mostrar', resultados: resultados });
+        res.status(200).json({ error: false, message: 'Nada que mostrar', usuarios: resultados });
       }
     })
     .catch((error) => {
@@ -56,9 +56,9 @@ router.get('/profile/:username', (req, res) => {
     .then((resultados) => {
       console.log('Resultados:', resultados);
       if (resultados.length > 0) {
-        res.status(200).json({ error: false, message: 'Consulta exitosa', resultados: resultados });
+        res.status(200).json({ error: false, message: 'Consulta exitosa', usuario: resultados[0] });
       } else {
-        res.status(200).json({ error: false, message: 'Nada que mostrar', resultados: resultados });
+        res.status(200).json({ error: false, message: 'Nada que mostrar', usuario: resultados[0] });
       }
     })
     .catch((error) => {
