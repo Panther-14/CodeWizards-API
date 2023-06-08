@@ -1,9 +1,9 @@
 const connection = require('./db_connection');
 
-function dejarResenia(idUsuario, resenia, valoracion) {
+function dejarResenia(idUsuario, idLibro, resenia, valoracion) {
   return new Promise((resolve, reject) => {
-    const sql = 'INSERT INTO resenia (idResenia, descripcion, valoracion) VALUES (?, ?, ?)';
-    const values = [idUsuario, resenia, valoracion];
+    const sql = 'CALL InsertarResenia(?,?,?,?)';
+    const values = [idLibro, idUsuario, resenia, valoracion];
 
     connection.query(sql, values, (error, results) => {
       if (error) {

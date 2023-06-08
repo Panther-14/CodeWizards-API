@@ -20,9 +20,9 @@ async function deleteReview(idResenia) {
   }
 }
 
-async function leaveReview(idUsuario, resenia,valoracion) {
+async function leaveReview(idUsuario, idLibro, resenia,valoracion) {
   try {
-    const resultados = await ReviewDAO.dejarResenia(idUsuario, resenia,valoracion);
+    const resultados = await ReviewDAO.dejarResenia(idUsuario, idLibro, resenia,valoracion);
     return resultados;
   } catch (error) {
     console.error(error);

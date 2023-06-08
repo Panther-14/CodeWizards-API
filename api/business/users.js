@@ -90,6 +90,25 @@ async function getUserEmail(username, email) {
   }
 }
 
+async function updateUser({ idUsuario, nombre, apellidoPaterno, apellidoMaterno, email, contrasena }) {
+  try {
+    const resultados = await UserDAO.actualizarUsuario({ idUsuario, nombre, apellidoPaterno, apellidoMaterno, email, contrasena });
+    return resultados;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
+
+async function deleteUser(idUsuario) {
+  try{
+    const resultados = await UserDAO.eliminarUsuario(idUsuario);
+    return resultados;
+  } catch (error){
+    console.error(error);
+    return error;
+  }
+}
 module.exports = {
   loginUser,
   registerUser,
@@ -99,5 +118,7 @@ module.exports = {
   findUser,
   seeProfile,
   getAllUsersEmail,
-  getUserEmail
+  getUserEmail,
+  updateUser,
+  deleteUser
 };

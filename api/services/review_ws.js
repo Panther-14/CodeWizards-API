@@ -6,11 +6,6 @@ const BusinessReview = require('../business/reviews');
 
 router.use(verifyToken);
 
-//Visualizar Reseñas
-router.get('/all', (req, res) => {
-  res.json({ test: "Hola!!", idbook: idbook });
-});
-
 //Visualizar Reseñas reportadas
 router.get('/reported', (req, res) => {
   BusinessReview.getReportedReviews()
@@ -46,10 +41,10 @@ router.get('/book/:idbook', (req, res) => {
   });
 });
 
-//Escribir Reseña
+//Escribir Reseña y Calificar libro
 router.put('/leavereview', (req, res) => {
-  const { idUsuario, resenia,valoracion } = req.body;
-  BusinessReview.leaveReview(idUsuario,resenia,valoracion)
+  const { idUsuario, resenia, valoracion, idLibro } = req.body;
+  BusinessReview.leaveReview(idUsuario, idLibro, resenia,valoracion)
   .then((resultados) => {
     console.log("Resultados:", resultados);
     if(resultados.affectedRows> 0){
