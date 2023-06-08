@@ -20,8 +20,34 @@ async function registerUser(user) {
   }
 }
 
-async function updatePassword(username, oldPassword, newPassword) {
-  return true;
+async function updatePassword(idUser, oldPassword, newPassword) {
+  try {
+    const resultados = await UserDAO.cambiarContrasenia(idUser,oldPassword,newPassword);
+    return resultados;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
+
+async function recoverPassword(username, newPassword, otp) {
+  try {
+    const resultados = await UserDAO.recuperarContrasenia(username,newPassword,otp);
+    return resultados;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
+
+async function updateOtp(username,otp){
+  try {
+    const resultados = await UserDAO.insertarContraseniaTemporal(otp,username);
+    return resultados;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
 }
 
 async function findUser(username) {
@@ -54,11 +80,24 @@ async function getAllUsersEmail() {
   }
 }
 
+async function getUserEmail(username, email) {
+  try {
+    const resultados = await UserDAO.obtenerEmailUsuario(username, email);
+    return resultados;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
+
 module.exports = {
   loginUser,
   registerUser,
   updatePassword,
+  recoverPassword,
+  updateOtp,
   findUser,
   seeProfile,
-  getAllUsersEmail
+  getAllUsersEmail,
+  getUserEmail
 };

@@ -4,6 +4,7 @@ const router = Router();
 const verifyToken = require('../security/tkn_auth');
 const BusinessUser = require('../business/users');
 const EmailSender = require('../util/email_sender');
+const generateRandomNumber = require('../util/otp_generator');
 
 router.use(verifyToken);
 
@@ -15,13 +16,69 @@ router.patch('/updateprofile', (req, res) => {
 //Actualizar Contraseña
 router.patch('/updatepassword', (req, res) => {
   const { username, oldPassword, newPassword } = req.body;
-  const user = BusinessUser.updatePassword(username, oldPassword, newPassword);
+  BusinessUser.updatePassword(username, oldPassword, newPassword)
+  .then((resultados) => {
+    console.log('Resultados:', resultados);
+    if (resultados.affectedRows > 0) {
+      res.status(200).json({ error: false, message: 'Actualización de contraseña exitosa', affectedRows: resultados.affectedRows });
+    } else {
+      res.status(200).json({ error: false, message: 'Nada que Actualizar', affectedRows: resultados.affectedRows });
+    }
+  })
+  .catch((error) => {
+    console.error('Error en el registro:', error);
+    res.status(500).json({ error: true, message: 'Error en la actualización' });
+  });
   res.json(`${user} ${req.user}`);
 });
 
 //Recuperar Contraseña
-router.get('/recoverpassword', (req, res) => {
-  res.json({ test: "Hola!!" });
+router.post('/sendotp', (req, res) => {
+  const { email, username } = req.body;
+  const otp = generateRandomNumber(6);
+  try{
+    const resultados = BusinessUser.getUserEmail(username,email);
+    if(resultados.length > 0){
+      try{
+        const res = BusinessUser.updateOtp(username,otp);
+        if(res.affectedRows > 0){
+          EmailSender.sendEmail(email, subject, body)
+          .then(() => {
+            res.status(200).json({ error: false, message: 'OTP Enviado Correctamente', otp: otp});
+            
+          })
+          .catch((error) => {
+            console.error('Error en el envio:', error);
+            res.status(500).json({ error: true, message: 'OTP No Enviado'});
+          });
+        }
+      }catch(err){
+        console.error('Error en la actualización del otp:', err);
+      }
+    }else{
+      res.status(200).json({ error: false, message: 'Nada que mostrar', correo: resultados});
+    }
+  }catch(err){
+    console.error('Error en la busqueda del email:', err);
+  }
+});
+//Recuperar Contraseña
+router.post('/recoverpassword', (req, res) => {
+  const { email, username, oldPassword, newPassword } = req.body;
+
+  BusinessUser.recoverPassword(username,newPassword,oldPassword)
+  .then((resultados) => {
+    console.log('Resultados:', resultados);
+    if (resultados.affectedRows > 0) {
+      res.status(200).json({ error: false, message: 'Actualización de contraseña exitosa', affectedRows: resultados.affectedRows });
+    } else {
+      res.status(200).json({ error: false, message: 'Nada que Actualizar', affectedRows: resultados.affectedRows });
+    }
+  })
+  .catch((error) => {
+    console.error('Error en el registro:', error);
+    res.status(500).json({ error: true, message: 'Error en la actualización' });
+  });
 });
 
 //Eliminar Perfil
@@ -90,7 +147,7 @@ router.post('/broadcast', (req, res) => {
       })
       .catch((error) => {
         console.error('Error en el envio:', error);
-        res.status(200).json({ error: false, message: 'Broadcast No Enviado'});
+        res.status(500).json({ error: true, message: 'Broadcast No Enviado'});
       });
     }
   })

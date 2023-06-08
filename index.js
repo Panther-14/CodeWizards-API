@@ -2,12 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
-require('dotenv').config()
+require('dotenv').config({ path: './.env' })
 
 // Settings
 const PORT = process.env.PORT || 3000;
 const corsOptions = {
-  origin: ['https://www.example1.com', 'https://www.example2.com'],
+  origin: ['CodeWizards'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
@@ -40,8 +40,3 @@ app.all('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor iniciado en el puerto ${PORT}`);
 });
-/*
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Servidor iniciado en http://0.0.0.0:${PORT}`);
-});
-*/

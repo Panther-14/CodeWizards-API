@@ -23,7 +23,7 @@ router.post('/login', (req, res) => {
             res.status(500).json({ error: true, message: "Error en el token" });
             return;
           }
-          res.json({ token });
+          res.status(200).json({ error: false, token: token, user: resultados[0] });
         });
       } else {
         res.status(401).json({ error: true, message: "Credenciales inválidas" });
