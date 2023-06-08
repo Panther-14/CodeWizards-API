@@ -10,6 +10,20 @@ router.use(verifyToken);
 
 //Actualizar Perfil
 router.patch('/updateprofile', (req, res) => {
+  const { idUsuario, nombre, apellidoPaterno, apellidoMaterno, email, contrasena } = req.body;
+  BusinessUser.updateUser({ idUsuario, nombre, apellidoPaterno, apellidoMaterno, email, contrasena })
+  .then((resultados) => {
+    console.log('Resultados:', resultados);
+    if (resultados.affectedRows > 0) {
+      res.status(200).json({ error: false, message: 'Actualización de contraseña exitosa', affectedRows: resultados.affectedRows });
+    } else {
+      res.status(200).json({ error: false, message: 'Nada que Actualizar', affectedRows: resultados.affectedRows });
+    }
+  })
+  .catch((error) => {
+    console.error('Error en el registro:', error);
+    res.status(500).json({ error: true, message: 'Error en la actualización' });
+  });
   res.json({ test: "Hola!!" });
 });
 
@@ -82,8 +96,20 @@ router.post('/recoverpassword', (req, res) => {
 });
 
 //Eliminar Perfil
-router.post('/deleteprofile', (req, res) => {
-  res.json({ test: "Hola!!" });
+router.delete('/deleteprofile', (req, res) => {
+  const { idUsuario } = req.body;
+  BusinessUser.deleteUser(idUsuario)
+  .then((resultados) => {
+    console.log(resultados);
+    if(resultados.affectedRows > 0){
+      res.status(200).json({ error: false, message: 'Eliminación de Usuario exitoso', affectedRows: resultados.affectedRows });
+    }else{
+      res.status(200).json({ error: false, message: 'Nada que Actualizar', affectedRows: resultados.affectedRows });
+    }
+  })
+  .catch((error) => {
+      console.error("Error al eliminar:", error);
+  });
 });
 
 //Buscar Perfil
@@ -91,18 +117,18 @@ router.get('/finduser/:username', (req, res) => {
   const username = req.params.username;
 
   BusinessUser.findUser(username)
-    .then((resultados) => {
-      console.log('Resultados:', resultados);
-      if (resultados.length > 0) {
-        res.status(200).json({ error: false, message: 'Consulta exitosa', usuarios: resultados });
-      } else {
-        res.status(200).json({ error: false, message: 'Nada que mostrar', usuarios: resultados });
-      }
-    })
-    .catch((error) => {
-      console.error('Error en la consulta:', error);
-      res.status(500).json({ error: true, message: 'Error en la consulta' });
-    });
+  .then((resultados) => {
+    console.log('Resultados:', resultados);
+    if (resultados.length > 0) {
+      res.status(200).json({ error: false, message: 'Consulta exitosa', usuarios: resultados });
+    } else {
+      res.status(200).json({ error: false, message: 'Nada que mostrar', usuarios: resultados });
+    }
+  })
+  .catch((error) => {
+    console.error('Error en la consulta:', error);
+    res.status(500).json({ error: true, message: 'Error en la consulta' });
+  });
 });
 
 //Consultar Perfil
@@ -127,11 +153,6 @@ router.get('/profile/:username', (req, res) => {
 //Consultar Biblioteca
 router.get('/library/:iduser', (req, res) => {
   const iduser = req.params.iduser;
-  res.json({ test: "Hola!!" });
-});
-
-//Sugerir Libro
-router.post('/suggest', (req, res) => {
   res.json({ test: "Hola!!" });
 });
 

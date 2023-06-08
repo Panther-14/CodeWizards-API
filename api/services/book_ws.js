@@ -53,11 +53,6 @@ router.post('/deletebook', (req, res) => {
   res.json({ libros: 'Overlord' });
 });
 
-//Calificar Libro
-router.post('/reviewbook', (req, res) => {
-  res.json({ test: "Hola!!" });
-});
-
 //Buscar Libro
 router.get('/findbook/:bookname', (req, res) => {
   const bookname = req.params.bookname;
@@ -68,6 +63,11 @@ router.get('/findbook/:bookname', (req, res) => {
 router.get('/book/:bookname', (req, res) => {
   const bookname = req.params.bookname;
   res.json({ test: "Hola!!", book: bookname });
+});
+
+//Sugerir Libro
+router.post('/suggest', (req, res) => {
+  res.json({ test: "Hola!!" });
 });
 
 module.exports = router;
