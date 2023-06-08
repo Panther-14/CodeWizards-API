@@ -2,7 +2,7 @@ const connection = require('./db_connection');
 
 function accederUsuario(nombreUsuario, contrasenia) {
   return new Promise((resolve, reject) => {
-    const sql = 'SELECT * FROM usuarios WHERE nombre_usuario = ? AND contrasenia = ?';
+    const sql = 'SELECT * FROM usuarios WHERE username = ? AND password = ?';
     const values = [nombreUsuario, contrasenia];
 
     connection.query(sql, values, (error, results, fields) => {
@@ -30,7 +30,7 @@ function registroUsuario(user) {
 
 function obtenerUsuario(nombreUsuario) {
   return new Promise((resolve, reject) => {
-    const sql = 'SELECT idUsuarios, username, nombre, apellidoPaterno, apellidoMaterno, email, tipoUsuario FROM usuarios WHERE username LIKE ? OR nombre LIKE ?';
+    const sql = 'SELECT idUsuario, username, nombre, apellidoPaterno, apellidoMaterno, email, tipoUsuario FROM usuarios WHERE username LIKE ? OR nombre LIKE ?';
     const values = [`%${nombreUsuario}%`, `%${nombreUsuario}%`];
 
     connection.query(sql, values, (error, results, fields) => {
@@ -44,7 +44,7 @@ function obtenerUsuario(nombreUsuario) {
 
 function obtenerPerfilUsuario(nombreUsuario) {
   return new Promise((resolve, reject) => {
-    const sql = 'SELECT idUsuarios, username, nombre, apellidoPaterno, apellidoMaterno, email, tipoUsuario FROM usuarios WHERE nombre_usuario = ?';
+    const sql = 'SELECT idUsuario, username, nombre, apellidoPaterno, apellidoMaterno, email, tipoUsuario FROM usuarios WHERE username = ?';
 
     connection.query(sql, nombreUsuario, (error, results, fields) => {
       if (error) {
@@ -69,10 +69,73 @@ function obtenerEmailTodosUsuarios() {
   });
 }
 
+function obtenerEmailUsuario(username, email) {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT email FROM usuarios WHERE username = ? AND email = ?';
+    const values = [username,email];
+
+    connection.query(sql, values, (error, results, fields) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(results);
+    });
+  });
+}
+
+function cambiarContrasenia(idUsuario, viejaContrasenia, nuevaContrasenia) {
+  return new Promise((resolve, reject) => {
+    const sql = 'UPDATE usuarios SET password = ?, WHERE idUsuario = ? AND password = ?';
+    const values = [nuevaContrasenia,idUsuario,viejaContrasenia];
+
+    connection.query(sql, values, (error, results) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve(results);
+    });
+  });
+}
+
+function recuperarContrasenia(username, nuevaContrasenia, otp) {
+  return new Promise((resolve, reject) => {
+    const sql = 'UPDATE usuarios SET password = ?, WHERE username = ? AND otp = ?';
+    const values = [nuevaContrasenia,username, otp];
+
+    connection.query(sql, values, (error, results) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve(results);
+    });
+  });
+}
+
+function insertarContraseniaTemporal(otp, username){
+  return new Promise((resolve, reject) => {
+    const sql = 'UPDATE usuarios SET otp = ? WHERE username = ?';
+    const values = [otp, username];
+
+    connection.query(sql, values, (error, results, fields) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve(results);
+    });
+  });
+}
+
 module.exports = {
   accederUsuario,
   registroUsuario,
   obtenerUsuario,
   obtenerPerfilUsuario,
-  obtenerEmailTodosUsuarios
+  obtenerEmailTodosUsuarios,
+  obtenerEmailUsuario,
+  cambiarContrasenia,
+  recuperarContrasenia,
+  insertarContraseniaTemporal
 };

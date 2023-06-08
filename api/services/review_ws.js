@@ -17,9 +17,9 @@ router.get('/reported', (req, res) => {
   .then((resultados) => {
     console.log('Resultados:', resultados);
     if (resultados.length > 0) {
-      res.status(200).json({ error: false, message: 'Consulta exitosa', resultados: resultados });
+      res.status(200).json({ error: false, message: 'Consulta exitosa', resenias: resultados });
     } else {
-      res.status(200).json({ error: false, message: 'Nada que mostrar', resultados: resultados });
+      res.status(200).json({ error: false, message: 'Nada que mostrar', resenias: resultados });
     }
   })
   .catch((error) => {
@@ -35,9 +35,9 @@ router.get('/book/:idbook', (req, res) => {
   .then((resultados) => {
     console.log('Resultados:', resultados);
     if (resultados.length > 0) {
-      res.status(200).json({ error: false, message: 'Consulta exitosa', resultados: resultados });
+      res.status(200).json({ error: false, message: 'Consulta exitosa', resenias: resultados });
     } else {
-      res.status(200).json({ error: false, message: 'Nada que mostrar', resultados: resultados });
+      res.status(200).json({ error: false, message: 'Nada que mostrar', resenias: resultados });
     }
   })
   .catch((error) => {
