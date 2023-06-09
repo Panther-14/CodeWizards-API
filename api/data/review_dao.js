@@ -60,10 +60,10 @@ function reportarResenia(idUsuario,idResenia){
   });
 }
 
-function obtenerReseniasLibro(idResenia, idLibro){
+function obtenerReseniasLibro(idLibro){
   return new Promise((resolve, reject) => {
     const sql = 'SELECT resenias.idResenia, idLibro, idUsuario, descripcion, valoracion FROM resenias INNER JOIN	libros_resenias ON resenias.idResenia = libros_resenias.idResenia WHERE libros_resenias.idLibro = ?;';
-    const values = [idResenia, idLibro];
+    const values = [idLibro];
 
     connection.query(sql, values, (error, results) => {
       if (error) {

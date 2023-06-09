@@ -12,104 +12,102 @@ router.use(verifyToken);
 router.patch('/updateprofile', (req, res) => {
   const { idUsuario, nombre, apellidoPaterno, apellidoMaterno, email, contrasena } = req.body;
   BusinessUser.updateUser({ idUsuario, nombre, apellidoPaterno, apellidoMaterno, email, contrasena })
-  .then((resultados) => {
-    console.log('Resultados:', resultados);
-    if (resultados.affectedRows > 0) {
-      res.status(200).json({ error: false, message: 'Actualización de contraseña exitosa', affectedRows: resultados.affectedRows });
-    } else {
-      res.status(200).json({ error: false, message: 'Nada que Actualizar', affectedRows: resultados.affectedRows });
-    }
-  })
-  .catch((error) => {
-    console.error('Error en el registro:', error);
-    res.status(500).json({ error: true, message: 'Error en la actualización' });
-  });
-  res.json({ test: "Hola!!" });
+    .then((resultados) => {
+      console.log('Resultados:', resultados);
+      if (resultados.affectedRows > 0) {
+        res.status(200).json({ error: false, message: 'Actualización de perfil exitosa', affectedRows: resultados.affectedRows });
+      } else {
+        res.status(200).json({ error: false, message: 'Nada que Actualizar', affectedRows: resultados.affectedRows });
+      }
+    })
+    .catch((error) => {
+      console.error('Error en el registro:', error);
+      res.status(500).json({ error: true, message: 'Error en la actualización' });
+    });
+  //res.json({ test: "Hola!!" });
 });
 
 //Actualizar Contraseña
 router.patch('/updatepassword', (req, res) => {
-  const { username, oldPassword, newPassword } = req.body;
-  BusinessUser.updatePassword(username, oldPassword, newPassword)
-  .then((resultados) => {
-    console.log('Resultados:', resultados);
-    if (resultados.affectedRows > 0) {
-      res.status(200).json({ error: false, message: 'Actualización de contraseña exitosa', affectedRows: resultados.affectedRows });
-    } else {
-      res.status(200).json({ error: false, message: 'Nada que Actualizar', affectedRows: resultados.affectedRows });
-    }
-  })
-  .catch((error) => {
-    console.error('Error en el registro:', error);
-    res.status(500).json({ error: true, message: 'Error en la actualización' });
-  });
-  res.json(`${user} ${req.user}`);
+  const { idUsuario, oldPassword, newPassword } = req.body;
+  BusinessUser.updatePassword(idUsuario, oldPassword, newPassword)
+    .then((resultados) => {
+      console.log('Resultados:', resultados);
+      if (resultados.affectedRows > 0) {
+        res.status(200).json({ error: false, message: 'Actualización de contraseña exitosa', affectedRows: resultados.affectedRows });
+      } else {
+        res.status(200).json({ error: false, message: 'Nada que Actualizar', affectedRows: resultados.affectedRows });
+      }
+    })
+    .catch((error) => {
+      console.error('Error en el registro:', error);
+      res.status(500).json({ error: true, message: 'Error en la actualización' });
+    });
 });
 
 //Recuperar Contraseña
 router.post('/sendotp', (req, res) => {
   const { email, username } = req.body;
   const otp = generateRandomNumber(6);
-  try{
-    const resultados = BusinessUser.getUserEmail(username,email);
-    if(resultados.length > 0){
-      try{
-        const res = BusinessUser.updateOtp(username,otp);
-        if(res.affectedRows > 0){
-          EmailSender.sendEmail(email, subject, body)
-          .then(() => {
-            res.status(200).json({ error: false, message: 'OTP Enviado Correctamente', otp: otp});
-            
+
+  BusinessUser.getUserEmail(username, email)
+    .then((resultados) => {
+      if (resultados.length > 0) {
+        BusinessUser.updateOtp(username, otp)
+          .then((resultado) => {
+            if (resultado.affectedRows > 0) {
+              EmailSender.sendEmail({ toEmail: email, subject: "One Time Password", body: `${otp}` });
+              res.status(200).json({ error: false, message: 'OTP Enviado Correctamente', otp: otp});
+            }else{
+              res.status(500).json({ error: true, message: 'OTP No Enviado'});
+            }
           })
-          .catch((error) => {
-            console.error('Error en el envio:', error);
-            res.status(500).json({ error: true, message: 'OTP No Enviado'});
+          .catch((err) => {
+            console.error('Error en la actualización del otp:', err);
           });
-        }
-      }catch(err){
-        console.error('Error en la actualización del otp:', err);
+
+      } else {
+        res.status(200).json({ error: false, message: 'Nada que mostrar', correo: resultados });
       }
-    }else{
-      res.status(200).json({ error: false, message: 'Nada que mostrar', correo: resultados});
-    }
-  }catch(err){
-    console.error('Error en la busqueda del email:', err);
-  }
+    })
+    .catch((error) => {
+      console.error('Error en la busqueda del email:', error);
+    });
 });
 //Recuperar Contraseña
 router.post('/recoverpassword', (req, res) => {
   const { email, username, oldPassword, newPassword } = req.body;
 
-  BusinessUser.recoverPassword(username,newPassword,oldPassword)
-  .then((resultados) => {
-    console.log('Resultados:', resultados);
-    if (resultados.affectedRows > 0) {
-      res.status(200).json({ error: false, message: 'Actualización de contraseña exitosa', affectedRows: resultados.affectedRows });
-    } else {
-      res.status(200).json({ error: false, message: 'Nada que Actualizar', affectedRows: resultados.affectedRows });
-    }
-  })
-  .catch((error) => {
-    console.error('Error en el registro:', error);
-    res.status(500).json({ error: true, message: 'Error en la actualización' });
-  });
+  BusinessUser.recoverPassword(username, newPassword, oldPassword)
+    .then((resultados) => {
+      console.log('Resultados:', resultados);
+      if (resultados.affectedRows > 0) {
+        res.status(200).json({ error: false, message: 'Actualización de contraseña exitosa', affectedRows: resultados.affectedRows });
+      } else {
+        res.status(200).json({ error: false, message: 'Nada que Actualizar', affectedRows: resultados.affectedRows });
+      }
+    })
+    .catch((error) => {
+      console.error('Error en el registro:', error);
+      res.status(500).json({ error: true, message: 'Error en la actualización' });
+    });
 });
 
 //Eliminar Perfil
 router.delete('/deleteprofile', (req, res) => {
   const { idUsuario } = req.body;
   BusinessUser.deleteUser(idUsuario)
-  .then((resultados) => {
-    console.log(resultados);
-    if(resultados.affectedRows > 0){
-      res.status(200).json({ error: false, message: 'Eliminación de Usuario exitoso', affectedRows: resultados.affectedRows });
-    }else{
-      res.status(200).json({ error: false, message: 'Nada que Actualizar', affectedRows: resultados.affectedRows });
-    }
-  })
-  .catch((error) => {
+    .then((resultados) => {
+      console.log(resultados);
+      if (resultados.affectedRows > 0) {
+        res.status(200).json({ error: false, message: 'Eliminación de Usuario exitoso', affectedRows: resultados.affectedRows });
+      } else {
+        res.status(200).json({ error: false, message: 'Nada que Actualizar', affectedRows: resultados.affectedRows });
+      }
+    })
+    .catch((error) => {
       console.error("Error al eliminar:", error);
-  });
+    });
 });
 
 //Buscar Perfil
@@ -117,18 +115,18 @@ router.get('/finduser/:username', (req, res) => {
   const username = req.params.username;
 
   BusinessUser.findUser(username)
-  .then((resultados) => {
-    console.log('Resultados:', resultados);
-    if (resultados.length > 0) {
-      res.status(200).json({ error: false, message: 'Consulta exitosa', usuarios: resultados });
-    } else {
-      res.status(200).json({ error: false, message: 'Nada que mostrar', usuarios: resultados });
-    }
-  })
-  .catch((error) => {
-    console.error('Error en la consulta:', error);
-    res.status(500).json({ error: true, message: 'Error en la consulta' });
-  });
+    .then((resultados) => {
+      console.log('Resultados:', resultados);
+      if (resultados.length > 0) {
+        res.status(200).json({ error: false, message: 'Consulta exitosa', usuarios: resultados });
+      } else {
+        res.status(200).json({ error: false, message: 'Nada que mostrar', usuarios: resultados });
+      }
+    })
+    .catch((error) => {
+      console.error('Error en la consulta:', error);
+      res.status(500).json({ error: true, message: 'Error en la consulta' });
+    });
 });
 
 //Consultar Perfil
@@ -158,24 +156,25 @@ router.get('/library/:iduser', (req, res) => {
 
 //Broadcast
 router.post('/broadcast', (req, res) => {
+  const { subject, content } = req.body;
   BusinessUser.getAllUsersEmail()
-  .then((resultados) => {
-    console.log("Resultados:", resultados);
-    if(resultados.length > 0){
-      EmailSender.sendBroadcastEmail(resultados, subject, body)
-      .then(() => {
-        res.status(200).json({ error: false, message: 'Broadcast Enviado Correctamente'});
-      })
-      .catch((error) => {
-        console.error('Error en el envio:', error);
-        res.status(500).json({ error: true, message: 'Broadcast No Enviado'});
-      });
-    }
-  })
-  .catch((error) => {
-    console.error('Error en la consulta:', error);
-    res.status(500).json({ error: true, message: 'Error en la consulta' });
-  });
+    .then((resultados) => {
+      console.log("Resultados:", resultados);
+      if (resultados.length > 0) {
+        EmailSender.sendBroadcastEmail(resultados, subject, content)
+          .then(() => {
+            res.status(200).json({ error: false, message: 'Broadcast Enviado Correctamente' });
+          })
+          .catch((error) => {
+            console.error('Error en el envio:', error);
+            res.status(500).json({ error: true, message: 'Broadcast No Enviado' });
+          });
+      }
+    })
+    .catch((error) => {
+      console.error('Error en la consulta:', error);
+      res.status(500).json({ error: true, message: 'Error en la consulta' });
+    });
 });
 
 module.exports = router;

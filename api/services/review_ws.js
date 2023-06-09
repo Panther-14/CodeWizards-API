@@ -48,7 +48,6 @@ router.put('/leavereview', (req, res) => {
   .then((resultados) => {
     console.log("Resultados:", resultados);
     if(resultados.affectedRows> 0){
-      sendMessage(celular, otp);
       res.status(200).json({ error: false, message: 'Registro de Reseña exitoso', affectedRows: resultados.affectedRows });
     }else{
       res.status(200).json({ error: false, message: 'Nada que Actualizar', affectedRows: resultados.affectedRows });
@@ -86,7 +85,7 @@ router.post('/reportreview', (req, res) => {
   .then((resultados) => {
     console.log('Resultados:', resultados);
     if (resultados.affectedRows > 0) {
-      res.status(200).json({ error: false, message: 'Registro de reseña exitoso', affectedRows: resultados.affectedRows });
+      res.status(200).json({ error: false, message: 'Reporte de reseña exitoso', affectedRows: resultados.affectedRows });
     } else {
       res.status(200).json({ error: false, message: 'Nada que Actualizar', affectedRows: resultados.affectedRows });
     }

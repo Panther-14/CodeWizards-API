@@ -37,15 +37,14 @@ router.post('/login', (req, res) => {
 
 //Registrar
 router.put('/signin', (req, res) => {
-  const { idUsuarios, username, nombre, apellidoPaterno, apellidoMaterno, email, password, tipoUsuario } = req.body;
+  const { username, nombre, apellidoPaterno, apellidoMaterno, email, password, tipoUsuario } = req.body;
 
-  const usuario = { idUsuarios, username, nombre, apellidoPaterno, apellidoMaterno, email, password, tipoUsuario };
+  const usuario = { username, nombre, apellidoPaterno, apellidoMaterno, email, password, tipoUsuario };
 
   UsuarioBusiness.registerUser(usuario)
     .then((resultados) => {
       console.log("Resultados:", resultados);
       if (resultados.affectedRows > 0) {
-        sendMessage(celular, otp);
         res.status(200).json({ error: false, message: 'Registro de Usuario exitosa', affectedRows: resultados.affectedRows });
       } else {
         res.status(200).json({ error: false, message: 'Nada que Actualizar', affectedRows: resultados.affectedRows });
