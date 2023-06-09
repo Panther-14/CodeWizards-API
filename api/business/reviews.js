@@ -40,9 +40,9 @@ async function reportReview(idUsuario, idResenia) {
   }
 }
 
-async function getBookReviews(idLibro, idResenia) {
+async function getBookReviews(idLibro) {
   try {
-    const resultados = await ReviewDAO.obtenerReseniasLibro(idResenia,idLibro);
+    const resultados = await ReviewDAO.obtenerReseniasLibro(idLibro);
     return resultados;
   } catch (error) {
     console.error(error);

@@ -87,7 +87,7 @@ function obtenerEmailTodosUsuarios() {
 function obtenerEmailUsuario(username, email) {
   return new Promise((resolve, reject) => {
     const sql = 'SELECT email FROM usuarios WHERE username = ? AND email = ?';
-    const values = [username,email];
+    const values = [username, email];
 
     connection.query(sql, values, (error, results, fields) => {
       if (error) {
@@ -100,8 +100,8 @@ function obtenerEmailUsuario(username, email) {
 
 function cambiarContrasenia(idUsuario, viejaContrasenia, nuevaContrasenia) {
   return new Promise((resolve, reject) => {
-    const sql = 'UPDATE usuarios SET password = ?, WHERE idUsuario = ? AND password = ?';
-    const values = [nuevaContrasenia,idUsuario,viejaContrasenia];
+    const sql = 'UPDATE usuarios SET password = ? WHERE idUsuario = ? AND password = ?';
+    const values = [nuevaContrasenia, idUsuario, viejaContrasenia];
 
     connection.query(sql, values, (error, results) => {
       if (error) {
@@ -115,8 +115,8 @@ function cambiarContrasenia(idUsuario, viejaContrasenia, nuevaContrasenia) {
 
 function recuperarContrasenia(username, nuevaContrasenia, otp) {
   return new Promise((resolve, reject) => {
-    const sql = 'UPDATE usuarios SET password = ?, WHERE username = ? AND otp = ?';
-    const values = [nuevaContrasenia,username, otp];
+    const sql = 'UPDATE usuarios SET password = ? WHERE username = ? AND otp = ?';
+    const values = [nuevaContrasenia, username, otp];
 
     connection.query(sql, values, (error, results) => {
       if (error) {
@@ -128,7 +128,7 @@ function recuperarContrasenia(username, nuevaContrasenia, otp) {
   });
 }
 
-function insertarContraseniaTemporal(otp, username){
+function insertarContraseniaTemporal(otp, username) {
   return new Promise((resolve, reject) => {
     const sql = 'UPDATE usuarios SET otp = ? WHERE username = ?';
     const values = [otp, username];
@@ -143,11 +143,11 @@ function insertarContraseniaTemporal(otp, username){
   });
 }
 
-function eliminarUsuario(idUsuario){
+function eliminarUsuario(idUsuario) {
   return new Promise((resolve, reject) => {
     const sql = 'UPDATE usuarios SET eliminado = ? WHERE idUsuario = ?;';
-    const values = [1, idNota, idUsuario];
-    
+    const values = [1, idUsuario];
+
     connection.query(sql, values, (error, results) => {
       if (error) {
         reject(error);
