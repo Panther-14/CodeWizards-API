@@ -43,8 +43,36 @@ router.post('/addbook', (req, res) => {
 });                   
 
 //Actualizar Libro
-router.patch('/updatebook', (req, res) => {
-  res.json({ volumenes: 100 });
+router.patch('/updatebook/:idLibros', (req, res) => {
+    const { idLibros } = req.params;
+    const {
+        Editoriales_idEditoriales,
+        isbn,
+        fechaPublicacion,
+        titulo,
+        edicion,
+        numeroDePaginas,
+        idioma } = req.body;
+    bookBusiness.updateBook({
+        Editoriales_idEditoriales,
+        isbn,
+        fechaPublicacion,
+        titulo,
+        edicion,
+        numeroDePaginas,
+        idioma,
+        idLibros
+    }).then((resultados) => {
+            console.log('Resultados:', resultados);
+            if (resultados.affectedRows > 0) {
+                res.status(200).json({ error: false, message: 'Registro de Libro éxitoso exitosa', affectedRows: resultados.affectedRows });
+            } else {
+                res.status(200).json({ error: false, message: 'Nada que Actualizar', affectedRows: resultados.affectedRows });
+            }
+        }).catch((error) => {
+            console.error('Error en el registro:', error);
+            res.status(500).json({ error: false, message: 'Error en el registro' });
+        });
 });
 
 //Eliminar Libro

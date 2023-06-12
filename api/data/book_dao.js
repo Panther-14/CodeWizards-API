@@ -21,6 +21,29 @@ function registerBook(book) {
   });
 }
 
+function updateBook(book) {
+  return new Promise((resolve, reject) => {
+    const sql = 'UPDATE libros SET IFNULL(?, Editoriales_idEditoriales), IFNULL(?, isbn), IFNULL(?, fechaPublicacion), IFNULL(?, titulo), IFNULL(?, edicion), IFNULL(?, numeroDePaginas), IFNULL(?, idioma) WHERE (idLibros = ?);';
+    const values = [
+      book.Editoriales_idEditoriales,
+      book.isbn,
+      book.fechaPublicacion,
+      book.titulo,
+      book.edicion,
+      book.numeroDePaginas,
+      book.idioma,
+      book.idLibros];
+    connection.query(sql, values, (error, results) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve(results);
+    });
+  });
+}
+
 module.exports = {
   registerBook,
+  updateBook
 };

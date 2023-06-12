@@ -26,6 +26,35 @@ async function registerBook({
   }
 }
 
+async function updateBook({
+  Editoriales_idEditoriales,
+  isbn,
+  fechaPublicacion,
+  titulo,
+  edicion,
+  numeroDePaginas,
+  idioma,
+  idLibros
+}) {
+  try {
+    const bookToUpdate = {
+      Editoriales_idEditoriales,
+      isbn,
+      fechaPublicacion,
+      titulo,
+      edicion,
+      numeroDePaginas,
+      idioma,
+      idLibros
+    };
+    const result = await bookDAO.updateBook(bookToUpdate);
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 module.exports = {
   registerBook,
+  updateBook
 };
