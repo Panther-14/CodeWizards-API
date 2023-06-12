@@ -1,5 +1,20 @@
 const connection = require('./db_connection');
 
+function detallesLibro(idbook) {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT * FROM libros WHERE idbook = ?';
+    const values = [idbook];
+
+    connection.query(sql, values, (error, results) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve(results);
+    });
+  });
+}
+
 function registerBook(book) {
   return new Promise((resolve, reject) => {
     const sql = 'INSERT INTO libros (Editoriales_idEditoriales, isbn, fechaPublicacion, titulo, edicion, numeroDePaginas, idioma) VALUES (?, ?, ?, ?, ?, ?, ?);';
@@ -45,5 +60,6 @@ function updateBook(book) {
 
 module.exports = {
   registerBook,
-  updateBook
+  updateBook,
+  detallesLibro,
 };

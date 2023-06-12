@@ -6,6 +6,7 @@ const bookBusiness = require('../business/books');
 
 router.use(verifyToken);
 
+//Obtener todos los libros
 router.get('/', (req, res) => {
   res.json({ libros: 'Overlord' });
 });
@@ -80,26 +81,6 @@ router.post('/deletebook', (req, res) => {
   res.json({ libros: 'Overlord' });
 });
 
-//Escribir Reseña
-router.put('/leavereview', (req, res) => {
-  res.json({ libros: 'Overlord' });
-});
-
-//Delete Review
-router.post('/deletereview', (req, res) => {
-  res.json({ test: "Hola!!" });
-});
-
-//Reportar Reseña
-router.post('/reportreview', (req, res) => {
-  res.json({ test: "Hola!!" });
-});
-
-//Calificar Libro
-router.post('/reviewbook', (req, res) => {
-  res.json({ test: "Hola!!" });
-});
-
 //Buscar Libro
 router.get('/findbook/:bookname', (req, res) => {
   const bookname = req.params.bookname;
@@ -112,10 +93,9 @@ router.get('/book/:bookname', (req, res) => {
   res.json({ test: "Hola!!", book: bookname });
 });
 
-//Visualizar Reseña
-router.get('/reviews/:idbook', (req, res) => {
-  const idbook = req.params.idbook;
-  res.json({ test: "Hola!!", idbook: idbook });
+//Sugerir Libro
+router.post('/suggest', (req, res) => {
+  res.json({ test: "Hola!!" });
 });
 
 module.exports = router;

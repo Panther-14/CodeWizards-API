@@ -2,12 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
-require('dotenv').config()
+require('dotenv').config({ path: './.env' })
 
 // Settings
 const PORT = process.env.PORT || 3000;
 const corsOptions = {
-  origin: ['https://www.example1.com', 'https://www.example2.com'],
+  origin: ['CodeWizards'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
@@ -29,6 +29,7 @@ app.use('/auth', require('./api/services/auth_ws.js'));
 //Rutas API - Token Auth
 app.use('/api/users', require('./api/services/user_ws.js'));
 app.use('/api/books', require('./api/services/book_ws.js'));
+app.use('/api/reviews', require('./api/services/review_ws.js'));
 
 // Endpoint WildCard
 app.all('*', (req, res) => {
@@ -39,8 +40,3 @@ app.all('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor iniciado en el puerto ${PORT}`);
 });
-/*
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Servidor iniciado en http://0.0.0.0:${PORT}`);
-});
-*/
