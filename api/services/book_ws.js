@@ -49,7 +49,7 @@ router.patch('/updatebook', (req, res) => {
 });
 
 //Eliminar Libro
-router.post('/deletebook', (req, res) => {
+router.delete('/deletebook', (req, res) => {
   res.json({ libros: 'Overlord' });
 });
 
