@@ -8,8 +8,8 @@ require('dotenv').config({ path: './.env' })
 const PORT = process.env.PORT || 3000;
 const corsOptions = {
   origin: ['CodeWizards'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: [ 'GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization','Origin'],
 };
 
 // Middleware para analizar las solicitudes con cuerpo JSON
@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.set('json spaces', 2);
 
 // CORS
-app.use(cors());
+app.use(cors(corsOptions));
 
 //Rutas WEB
 app.use(express.static('./page/src'));
