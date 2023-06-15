@@ -7,7 +7,7 @@ const bookBusiness = require('../business/books');
 router.use(verifyToken);
 
 //Obtener todos los libros
-router.get('/', (req, res) => {
+router.get('/getAllBooks', (req, res) => {
   res.json({ libros: 'Overlord' });
 });
 
