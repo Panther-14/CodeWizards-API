@@ -57,8 +57,22 @@ router.delete('/deletebook', (req, res) => {
 //Buscar Libro
 router.get('/findbook/:bookname', (req, res) => {
   const bookname = req.params.bookname;
-  res.json({ test: "Hola!!", book: bookname });
-});
+
+  bookBusiness.findBook(bookname)
+    .then((resultados) => {
+      console.log('Resultados:', resultados);
+      if (resultados.length > 0) {
+        res.status(200).json({ error: false, message: 'Consulta exitosa', libros: resultados });
+      } else {
+        res.status(200).json({ error: false, message: 'Nada que mostrar', libros: resultados });
+      }
+    })
+    .catch((error) => {
+      console.error('Error en la consulta:', error);
+      res.status(500).json({ error: true, message: 'Error en la consulta' });
+    });
+});  
+
 
 //Consultar Libro
 router.get('/book/:bookname', (req, res) => {
