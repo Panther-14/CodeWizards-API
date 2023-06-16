@@ -35,8 +35,18 @@ async function registerBook({
     console.error(error);
   }
 }
+async function findBook(bookname) {
+  try {
+    const resultados = await BookDAO.obtenerLibro(bookname);
+    return resultados;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
 
 module.exports = {
   getBookDetails,
   registerBook,
+  findBook
 };

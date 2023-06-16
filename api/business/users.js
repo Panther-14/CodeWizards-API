@@ -22,7 +22,7 @@ async function registerUser(user) {
 
 async function updatePassword(idUser, oldPassword, newPassword) {
   try {
-    const resultados = await UserDAO.cambiarContrasenia(idUser,oldPassword,newPassword);
+    const resultados = await UserDAO.cambiarContrasenia(idUser, oldPassword, newPassword);
     return resultados;
   } catch (error) {
     console.error(error);
@@ -32,7 +32,7 @@ async function updatePassword(idUser, oldPassword, newPassword) {
 
 async function recoverPassword(username, newPassword, otp) {
   try {
-    const resultados = await UserDAO.recuperarContrasenia(username,newPassword,otp);
+    const resultados = await UserDAO.recuperarContrasenia(username, newPassword, otp);
     return resultados;
   } catch (error) {
     console.error(error);
@@ -40,9 +40,9 @@ async function recoverPassword(username, newPassword, otp) {
   }
 }
 
-async function updateOtp(username,otp){
+async function updateOtp(username, otp) {
   try {
-    const resultados = await UserDAO.insertarContraseniaTemporal(otp,username);
+    const resultados = await UserDAO.insertarContraseniaTemporal(otp, username);
     return resultados;
   } catch (error) {
     console.error(error);
@@ -101,10 +101,10 @@ async function updateUser({ idUsuario, nombre, apellidoPaterno, apellidoMaterno,
 }
 
 async function deleteUser(idUsuario) {
-  try{
+  try {
     const resultados = await UserDAO.eliminarUsuario(idUsuario);
     return resultados;
-  } catch (error){
+  } catch (error) {
     console.error(error);
     return error;
   }

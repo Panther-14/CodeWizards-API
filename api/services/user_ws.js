@@ -57,9 +57,9 @@ router.post('/sendotp', (req, res) => {
           .then((resultado) => {
             if (resultado.affectedRows > 0) {
               var result = EmailSender.sendEmail({ toEmail: email, subject: "One Time Password", body: `${otp}` });
-              if(result){
+              if (result) {
                 res.status(200).json({ error: false, message: 'OTP Enviado Correctamente', otp: otp });
-              }else{
+              } else {
                 res.status(500).json({ error: false, message: 'OTP No Enviado' });
               }
             } else {
@@ -122,7 +122,7 @@ router.get('/finduser/:username', (req, res) => {
     .then((resultados) => {
       console.log('Resultados:', resultados);
       if (resultados.length > 0) {
-        res.status(200).json({ error: false, message: 'Consulta exitosa', usuarios: resultados });
+        res.status(200).json({ error: false, message: 'Consulta exitosa ULISES', usuarios: resultados });
       } else {
         res.status(200).json({ error: false, message: 'Nada que mostrar', usuarios: resultados });
       }
@@ -170,13 +170,13 @@ router.post('/broadcast', (req, res) => {
           emails.push(resultados[i].email);
         }
         console.log("Emails", emails);
-        var result = EmailSender.sendBroadcastEmail({toEmails: emails, subject: subject, content: content})
-        if(result){
+        var result = EmailSender.sendBroadcastEmail({ toEmails: emails, subject: subject, content: content })
+        if (result) {
           res.status(200).json({ error: false, message: 'Broadcast Enviado Correctamente' });
-        }else{
+        } else {
           res.status(500).json({ error: false, message: 'Broadcast No Enviado' });
         }
-        
+
       }
     })
     .catch((error) => {
