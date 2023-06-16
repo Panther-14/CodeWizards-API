@@ -61,9 +61,9 @@ router.get('/findbook/:bookname', (req, res) => {
     .then((resultados) => {
       console.log('Resultados:', resultados);
       if (resultados.length > 0) {
-        res.status(200).json({ error: false, message: 'Consulta exitosa', books: resultados });
+        res.status(200).json({ error: false, message: 'Consulta exitosa', libros: resultados });
       } else {
-        res.status(200).json({ error: false, message: 'Nada que mostrar', books: resultados });
+        res.status(200).json({ error: false, message: 'Nada que mostrar', libros: resultados });
       }
     })
     .catch((error) => {
