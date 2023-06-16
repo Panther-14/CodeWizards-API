@@ -1,9 +1,9 @@
 const connection = require('./db_connection');
 
-function dejarResenia(idUsuario, idLibro, resenia, valoracion) {
+function dejarResenia(idUsuario, idLibro, descripcion, valoracion) {
   return new Promise((resolve, reject) => {
     const sql = 'CALL InsertarResenia(?,?,?,?)';
-    const values = [idLibro, idUsuario, resenia, valoracion];
+    const values = [idLibro, idUsuario, descripcion, valoracion];
 
     connection.query(sql, values, (error, results) => {
       if (error) {
@@ -17,7 +17,7 @@ function dejarResenia(idUsuario, idLibro, resenia, valoracion) {
 
 function obtenerReseniasReportadas() {
   return new Promise((resolve, reject) => {
-    const sql = 'SELECT * FROM resenias INNER JOIN reportes ON reportes.idResenia = resenias.idResenia WHERE activa = ?;';
+    const sql = 'SELECT resenias.idResenia, resenias.idUsuario, resenias.descripcion, resenias.valoracion, resenias.activa, reportes.idReporte FROM resenias INNER JOIN reportes ON reportes.idResenia = resenias.idResenia WHERE activa = ?;';
     const values = [0];
 
     connection.query(sql, values, (error, results) => {

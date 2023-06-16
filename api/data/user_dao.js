@@ -54,7 +54,7 @@ function actualizarUsuario({ idUsuario, nombre, apellidoPaterno, apellidoMaterno
 
 function obtenerUsuario(nombreUsuario) {
   return new Promise((resolve, reject) => {
-    const sql = 'SELECT idUsuario, username, nombre, apellidoPaterno, apellidoMaterno, email, tipoUsuario FROM usuarios WHERE username LIKE ? OR nombre LIKE ?';
+    const sql = 'SELECT idUsuario, username, nombre,apellidoPaterno, apellidoMaterno, email, tipoUsuario FROM usuarios WHERE username LIKE ? OR nombre LIKE ?';
     const values = [`%${nombreUsuario}%`, `%${nombreUsuario}%`];
 
     connection.query(sql, values, (error, results, fields) => {

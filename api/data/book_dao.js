@@ -35,19 +35,6 @@ function registerBook(book) {
     });
   });
 }
-function obtenerLibro(bookname) {
-  return new Promise((resolve, reject) => {
-    const sql = 'SELECT idLibro, idEditorial, isbn, fechaPublicacion, titulo, edicion,numeroDePaginas, idioma  FROM libros WHERE titulo LIKE ?';
-    const values = `%${bookname}%`;
-
-    connection.query(sql, values, (error, results, fields) => {
-      if (error) {
-        reject(error);
-      }
-      resolve(results);
-    });
-  });
-}
 
 function obtenerLibro(bookname) {
   return new Promise((resolve, reject) => {

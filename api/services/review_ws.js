@@ -43,8 +43,8 @@ router.get('/book/:idbook', (req, res) => {
 
 //Escribir Reseña y Calificar libro
 router.put('/leavereview', (req, res) => {
-  const { idUsuario, resenia, valoracion, idLibro } = req.body;
-  BusinessReview.leaveReview(idUsuario, idLibro, resenia,valoracion)
+  const { idUsuario, descripcion, valoracion, idLibro } = req.body;
+  BusinessReview.leaveReview(idUsuario, idLibro, descripcion,valoracion)
   .then((resultados) => {
     console.log("Resultados:", resultados);
     if(resultados.affectedRows> 0){
