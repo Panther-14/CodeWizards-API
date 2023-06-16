@@ -36,7 +36,22 @@ function registerBook(book) {
   });
 }
 
+function obtenerLibro(bookname) {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT * FROM libros WHERE titulo LIKE ?';
+    const values = [`${bookname}%`];
+
+    connection.query(sql, values, (error, results, fields) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(results);
+    });
+  });
+}
+
 module.exports = {
   detallesLibro,
-  registerBook
+  registerBook,
+  obtenerLibro  
 }
