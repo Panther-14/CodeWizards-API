@@ -1,0 +1,867 @@
+{
+	"info": {
+		"_postman_id": "7018f15a-5d31-4e97-adcc-e7bb714f8af8",
+		"name": "CodeWizards-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "panther",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"Panther\", \"password\": \"123456\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co/auth/login",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign In",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "panther",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"ThePanther\",\r\n    \"nombre\":\"Prueba\",\r\n    \"apellidoPaterno\":\"Probandig\",\r\n    \"apellidoMaterno\":\"Probanding\",\r\n    \"email\":\"email@email.mx\",\r\n    \"password\": 123456,\r\n    \"tipoUsuario\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co/auth/signin",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							],
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Update Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiUGFudGhlciJ9LCJpYXQiOjE2ODYzNDE5NDQsImV4cCI6MTY4NjM0NTU0NH0.uMe93hutV6yojY-I1BBOMNom2BhAdHCmZQYH2v3SHbM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuario\": \"1\",\r\n    \"nombre\": \"Panther\",\r\n    \"apellidoPaterno\": \"Dragon\",\r\n    \"apellidoMaterno\": \"King\",\r\n    \"email\": \"zs20015724@estudiantes.uv.mx\",\r\n    \"contrasena\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co/api/users/updateprofile",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							],
+							"path": [
+								"api",
+								"users",
+								"updateprofile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiUGFudGhlciJ9LCJpYXQiOjE2ODYzNDE5NDQsImV4cCI6MTY4NjM0NTU0NH0.uMe93hutV6yojY-I1BBOMNom2BhAdHCmZQYH2v3SHbM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuario\": \"1\",\r\n    \"oldPassword\": \"123456\",\r\n    \"newPassword\": \"654321\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co/api/users/updatepassword",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							],
+							"path": [
+								"api",
+								"users",
+								"updatepassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send OTP",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiUGFudGhlciJ9LCJpYXQiOjE2ODYzNDU2MDgsImV4cCI6MTY4NjM0OTIwOH0.QiT3EizKZufhK6KTF2ILw4_XKyiEpaqIhoKjmfba4mg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"zs20015724@estudiantes.uv.mx\",\r\n    \"username\": \"Panther\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co/api/users/sendotp",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							],
+							"path": [
+								"api",
+								"users",
+								"sendotp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recover Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiUGFudGhlciJ9LCJpYXQiOjE2ODYzNDU2MDgsImV4cCI6MTY4NjM0OTIwOH0.QiT3EizKZufhK6KTF2ILw4_XKyiEpaqIhoKjmfba4mg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"zs20015724@estudiantes.uv.mx\",\r\n    \"username\": \"Panther\",\r\n    \"oldPassword\": \"938116\",\r\n    \"newPassword\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co/api/users/recoverpassword",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							],
+							"path": [
+								"api",
+								"users",
+								"recoverpassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiUGFudGhlciJ9LCJpYXQiOjE2ODYzNDU2MDgsImV4cCI6MTY4NjM0OTIwOH0.QiT3EizKZufhK6KTF2ILw4_XKyiEpaqIhoKjmfba4mg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuario\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co/api/users/deleteprofile",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							],
+							"path": [
+								"api",
+								"users",
+								"deleteprofile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiUGFudGhlciJ9LCJpYXQiOjE2ODYzNDU2MDgsImV4cCI6MTY4NjM0OTIwOH0.QiT3EizKZufhK6KTF2ILw4_XKyiEpaqIhoKjmfba4mg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuario\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co/api/users/finduser/Panther",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							],
+							"path": [
+								"api",
+								"users",
+								"finduser",
+								"Panther"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiUGFudGhlciJ9LCJpYXQiOjE2ODYzNDU2MDgsImV4cCI6MTY4NjM0OTIwOH0.QiT3EizKZufhK6KTF2ILw4_XKyiEpaqIhoKjmfba4mg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuario\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co/api/users/profile/Panther",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							],
+							"path": [
+								"api",
+								"users",
+								"profile",
+								"Panther"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Books",
+			"item": [
+				{
+					"name": "Add Book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiUGFudGhlciJ9LCJpYXQiOjE2ODYxODAyMDEsImV4cCI6MTY4NjE4MzgwMX0.ezIn0Ze0uT8qp2ZUP2kSaKMRY6ORMs2HsPN1ajHS_iQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co/api/books/addbook",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							],
+							"path": [
+								"api",
+								"books",
+								"addbook"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoicGFudGhlciJ9LCJpYXQiOjE2ODM5MDcyOTgsImV4cCI6MTY4MzkxMDg5OH0.WHe6cF0psYvIPxuZ4_jPnkAy0lfYGrc2qTHNY5sZQNY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.coapi/books/updatebook",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"coapi"
+							],
+							"path": [
+								"books",
+								"updatebook"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoicGFudGhlciJ9LCJpYXQiOjE2ODM5MDcyOTgsImV4cCI6MTY4MzkxMDg5OH0.WHe6cF0psYvIPxuZ4_jPnkAy0lfYGrc2qTHNY5sZQNY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co/api/books/deletebook",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							],
+							"path": [
+								"api",
+								"books",
+								"deletebook"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Leave Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiUGFudGhlciJ9LCJpYXQiOjE2ODYzNDY3NjQsImV4cCI6MTY4NjM1MDM2NH0.N5I3OEEe1IVHZMgAoBGlK1_Oz78v4ZpMqL6n5wxc7vY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"idUsuario\":\"1\", \"resenia\":\"aaaaa\", \"valoracion\":\"5\", \"idLibro\":\"1\" }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co/api/reviews/leavereview",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							],
+							"path": [
+								"api",
+								"reviews",
+								"leavereview"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiUGFudGhlciJ9LCJpYXQiOjE2ODYzNDY3NjQsImV4cCI6MTY4NjM1MDM2NH0.N5I3OEEe1IVHZMgAoBGlK1_Oz78v4ZpMqL6n5wxc7vY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"idResenia\":\"3\" }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co/api/reviews/deletereview",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							],
+							"path": [
+								"api",
+								"reviews",
+								"deletereview"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Report Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiUGFudGhlciJ9LCJpYXQiOjE2ODYzNDY3NjQsImV4cCI6MTY4NjM1MDM2NH0.N5I3OEEe1IVHZMgAoBGlK1_Oz78v4ZpMqL6n5wxc7vY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"idUsuario\": 1, \"idResenia\": 2 }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co/api/reviews/reportreview",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							],
+							"path": [
+								"api",
+								"reviews",
+								"reportreview"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reported Reviews",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiUGFudGhlciJ9LCJpYXQiOjE2ODYzNDU2MDgsImV4cCI6MTY4NjM0OTIwOH0.QiT3EizKZufhK6KTF2ILw4_XKyiEpaqIhoKjmfba4mg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co/api/reviews/reported",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							],
+							"path": [
+								"api",
+								"reviews",
+								"reported"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Book Reviews",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiUGFudGhlciJ9LCJpYXQiOjE2ODYzNDU2MDgsImV4cCI6MTY4NjM0OTIwOH0.QiT3EizKZufhK6KTF2ILw4_XKyiEpaqIhoKjmfba4mg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co/api/reviews/book/1",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							],
+							"path": [
+								"api",
+								"reviews",
+								"book",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiUGFudGhlciJ9LCJpYXQiOjE2ODYxODQzNTcsImV4cCI6MTY4NjE4Nzk1N30.8g9FFvBr1nKKB_hd-e7OI50zfhs6sF9pF0I59u-MH6E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co/api/books/findbook/Overlord",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							],
+							"path": [
+								"api",
+								"books",
+								"findbook",
+								"Overlord"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Details Book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoicGFudGhlciJ9LCJpYXQiOjE2ODM5MDcyOTgsImV4cCI6MTY4MzkxMDg5OH0.WHe6cF0psYvIPxuZ4_jPnkAy0lfYGrc2qTHNY5sZQNY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co/api/books/book/Overlord",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							],
+							"path": [
+								"api",
+								"books",
+								"book",
+								"Overlord"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoicGFudGhlciJ9LCJpYXQiOjE2ODM5MDcyOTgsImV4cCI6MTY4MzkxMDg5OH0.WHe6cF0psYvIPxuZ4_jPnkAy0lfYGrc2qTHNY5sZQNY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co/api/books/reviews/Overlord",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							],
+							"path": [
+								"api",
+								"books",
+								"reviews",
+								"Overlord"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Review Book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoicGFudGhlciJ9LCJpYXQiOjE2ODM5MDcyOTgsImV4cCI6MTY4MzkxMDg5OH0.WHe6cF0psYvIPxuZ4_jPnkAy0lfYGrc2qTHNY5sZQNY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co/api/books/reviewbook",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							],
+							"path": [
+								"api",
+								"books",
+								"reviewbook"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Home",
+			"item": [
+				{
+					"name": "Home Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://codewizards-api.panther14.repl.co",
+							"protocol": "https",
+							"host": [
+								"codewizards-api",
+								"panther14",
+								"repl",
+								"co"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
