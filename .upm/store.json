@@ -1,0 +1,1 @@
+{"version":2,"languages":{"nodejs-npm":{"specfileHash":"ec49d4eec032ed613102ebce088f0e55","lockfileHash":"cb915ce55ed464504bcf6add776547b9","guessedImports":["body-parser","cors","dotenv","mysql","express","jsonwebtoken","@sendgrid/mail"],"guessedImportsHash":"6d10a93b6d4b1f3feef404cd7f192eb0"}}}
