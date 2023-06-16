@@ -11,7 +11,7 @@ async function getBookDetails(idbook) {
 }
 
 async function registerBook({
-  Editoriales_idEditoriales,
+  idEditorial,
   isbn,
   fechaPublicacion,
   titulo,
@@ -46,8 +46,10 @@ async function findBook(bookname) {
   }
 }
 
+
+
 module.exports = {
   getBookDetails,
   registerBook,
-  findBook
+  findBook,
 };

@@ -17,7 +17,7 @@ function detallesLibro(idbook) {
 
 function registerBook(book) {
   return new Promise((resolve, reject) => {
-    const sql = 'INSERT INTO libros (Editoriales_idEditoriales, isbn, fechaPublicacion, titulo, edicion, numeroDePaginas, idioma) VALUES (?, ?, ?, ?, ?, ?, ?);';
+    const sql = 'INSERT INTO libros (idEditorial, isbn, fechaPublicacion, titulo, edicion, numeroDePaginas, idioma) VALUES (?, ?, ?, ?, ?, ?, ?);';
     const values = [
       book.Editoriales_idEditoriales,
       book.isbn,
@@ -38,7 +38,7 @@ function registerBook(book) {
 
 function obtenerLibro(bookname) {
   return new Promise((resolve, reject) => {
-    const sql = 'SELECT idLibro, idEditorial, isbn, fechaPublicacion, titulo, edicion, numeroDePaginas, idioma  FROM libros WHERE titulo LIKE ?';
+    const sql = 'SELECT *  FROM libros WHERE titulo LIKE ?';
     const values = `${bookname}%`;
 
     connection.query(sql, values, (error, results, fields) => {
@@ -49,6 +49,8 @@ function obtenerLibro(bookname) {
     });
   });
 }
+
+
 
 module.exports = {
   detallesLibro,

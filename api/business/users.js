@@ -90,9 +90,9 @@ async function getUserEmail(username, email) {
   }
 }
 
-async function updateUser({ idUsuario, nombre, apellidoPaterno, apellidoMaterno, email, contrasena }) {
+async function updateUser({ idUsuario, nombre, apellidoPaterno, apellidoMaterno, email, password }) {
   try {
-    const resultados = await UserDAO.actualizarUsuario({ idUsuario, nombre, apellidoPaterno, apellidoMaterno, email, contrasena });
+    const resultados = await UserDAO.actualizarUsuario({ idUsuario, nombre, apellidoPaterno, apellidoMaterno, email, password });
     return resultados;
   } catch (error) {
     console.error(error);
