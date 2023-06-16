@@ -36,10 +36,10 @@ function registerBook(book) {
   });
 }
 
-function obtenerLibro(tituloLibro,isbnLibro) {
+function obtenerLibro(bookname) {
   return new Promise((resolve, reject) => {
-    const sql = 'SELECT * FROM libros WHERE titulo LIKE ? OR isbn LIKE ?';
-    const values = [`%${tituloLibro}%`, `%${isbnLibro}%`];
+    const sql = 'SELECT * FROM libros WHERE titulo LIKE ?';
+    const values = [`%${bookname}%`];
 
     connection.query(sql, values, (error, results, fields) => {
       if (error) {
