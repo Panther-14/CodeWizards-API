@@ -12,6 +12,7 @@ function sendEmail({ toEmail, subject, body }) {
   sgMail.send(msg)
     .then(() => {
       console.log('Email sent')
+      return true;
     })
     .catch((error) => {
       console.error(error);
@@ -19,6 +20,7 @@ function sendEmail({ toEmail, subject, body }) {
       if (error.response) {
         console.error(error.response.body)
       }
+      return false;
     });
 }
 
@@ -30,7 +32,7 @@ function sendBroadcastEmail({ toEmails, subject, body }) {
     text: body,
   };
   sgMail.sendMultiple(msg)
-    .then(() => {
+    .then(() => { return true;
       console.log('Email sent');
     }, error => {
       console.error(error);
@@ -38,6 +40,7 @@ function sendBroadcastEmail({ toEmails, subject, body }) {
       if (error.response) {
         console.error(error.response.body)
       }
+      return false;
     });
 }
 
