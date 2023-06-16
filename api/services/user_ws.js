@@ -10,8 +10,8 @@ router.use(verifyToken);
 
 //Actualizar Perfil
 router.patch('/updateprofile', (req, res) => {
-  const { idUsuario, nombre, apellidoPaterno, apellidoMaterno, email, contrasena } = req.body;
-  BusinessUser.updateUser({ idUsuario, nombre, apellidoPaterno, apellidoMaterno, email, contrasena })
+  const { idUsuario, nombre, apellidoPaterno, apellidoMaterno, email, password } = req.body;
+  BusinessUser.updateUser({ idUsuario, nombre, apellidoPaterno, apellidoMaterno, email, password })
     .then((resultados) => {
       console.log('Resultados:', resultados);
       if (resultados.affectedRows > 0) {
@@ -49,6 +49,7 @@ router.patch('/updatepassword', (req, res) => {
 router.post('/sendotp', (req, res) => {
   const { email, username } = req.body;
   const otp = generateRandomNumber(6);
+  console.log("OTP:", otp);
 
   BusinessUser.getUserEmail(username, email)
     .then((resultados) => {

@@ -25,9 +25,9 @@ function registroUsuario(user) {
       user.apellidoMaterno,
       user.password,
       user.tipoUsuario
-    ]
+    ];
 
-    connection.query(sql, user, (error, results) => {
+    connection.query(sql, values, (error, results) => {
       if (error) {
         reject(error);
         return;
@@ -37,10 +37,10 @@ function registroUsuario(user) {
   });
 }
 
-function actualizarUsuario({ idUsuario, nombre, apellidoPaterno, apellidoMaterno, email, contrasena }) {
+function actualizarUsuario({ idUsuario, nombre, apellidoPaterno, apellidoMaterno, email, password }) {
   return new Promise((resolve, reject) => {
     const sql = 'UPDATE usuarios SET nombre = ?, apellidoPaterno = ?, apellidoMaterno = ?, email = ? WHERE idUsuario = ? AND password = ?';
-    const values = [nombre, apellidoPaterno, apellidoMaterno, email, idUsuario, contrasena];
+    const values = [nombre, apellidoPaterno, apellidoMaterno, email, idUsuario, password];
 
     connection.query(sql, values, (error, results, fields) => {
       if (error) {

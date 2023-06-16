@@ -8,8 +8,8 @@ require('dotenv').config({ path: './.env' })
 const PORT = process.env.PORT || 3000;
 const corsOptions = {
   origin: ['CodeWizards'],
-  methods: [ 'GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization','Origin'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Origin'],
 };
 
 // Middleware para analizar las solicitudes con cuerpo JSON
@@ -30,6 +30,7 @@ app.use('/auth', require('./api/services/auth_ws.js'));
 app.use('/api/users', require('./api/services/user_ws.js'));
 app.use('/api/books', require('./api/services/book_ws.js'));
 app.use('/api/reviews', require('./api/services/review_ws.js'));
+app.use('/api/authors', require('./api/services/author_ws.js'));
 
 // Endpoint WildCard
 app.all('*', (req, res) => {
