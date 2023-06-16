@@ -56,10 +56,14 @@ router.post('/sendotp', (req, res) => {
         BusinessUser.updateOtp(username, otp)
           .then((resultado) => {
             if (resultado.affectedRows > 0) {
-              EmailSender.sendEmail({ toEmail: email, subject: "One Time Password", body: `${otp}` });
-              res.status(200).json({ error: false, message: 'OTP Enviado Correctamente', otp: otp});
-            }else{
-              res.status(500).json({ error: true, message: 'OTP No Enviado'});
+              var result = EmailSender.sendEmail({ toEmail: email, subject: "One Time Password", body: `${otp}` });
+              if(result){
+                res.status(200).json({ error: false, message: 'OTP Enviado Correctamente', otp: otp });
+              }else{
+                res.status(500).json({ error: false, message: 'OTP No Enviado' });
+              }
+            } else {
+              res.status(500).json({ error: true, message: 'OTP No Enviado' });
             }
           })
           .catch((err) => {
@@ -161,14 +165,18 @@ router.post('/broadcast', (req, res) => {
     .then((resultados) => {
       console.log("Resultados:", resultados);
       if (resultados.length > 0) {
-        EmailSender.sendBroadcastEmail(resultados, subject, content)
-          .then(() => {
-            res.status(200).json({ error: false, message: 'Broadcast Enviado Correctamente' });
-          })
-          .catch((error) => {
-            console.error('Error en el envio:', error);
-            res.status(500).json({ error: true, message: 'Broadcast No Enviado' });
-          });
+        const emails = [];
+        for (let i = 0; i < resultados.length; i++) {
+          emails.push(resultados[i].email);
+        }
+        console.log("Emails", emails);
+        var result = EmailSender.sendBroadcastEmail({toEmails: emails, subject: subject, content: content})
+        if(result){
+          res.status(200).json({ error: false, message: 'Broadcast Enviado Correctamente' });
+        }else{
+          res.status(500).json({ error: false, message: 'Broadcast No Enviado' });
+        }
+        
       }
     })
     .catch((error) => {

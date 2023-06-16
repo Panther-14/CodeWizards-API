@@ -39,7 +39,7 @@ router.post('/login', (req, res) => {
 router.put('/signin', (req, res) => {
   const { username, nombre, apellidoPaterno, apellidoMaterno, email, password, tipoUsuario } = req.body;
 
-  const usuario = { username, nombre, apellidoPaterno, apellidoMaterno, email, password, tipoUsuario };
+  const usuario = { username, email, nombre, apellidoPaterno, apellidoMaterno, password, tipoUsuario };
 
   UsuarioBusiness.registerUser(usuario)
     .then((resultados) => {

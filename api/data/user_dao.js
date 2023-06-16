@@ -16,7 +16,16 @@ function accederUsuario(nombreUsuario, contrasenia) {
 
 function registroUsuario(user) {
   return new Promise((resolve, reject) => {
-    const sql = 'INSERT INTO usuarios SET ?';
+    const sql = 'CALL RegistrarUsuario(?,?,?,?,?,?,?)';
+    const values = [
+      user.username,
+      user.email,
+      user.nombre,
+      user.apellidoPaterno,
+      user.apellidoMaterno,
+      user.password,
+      user.tipoUsuario
+    ]
 
     connection.query(sql, user, (error, results) => {
       if (error) {
@@ -75,7 +84,7 @@ function obtenerEmailTodosUsuarios() {
   return new Promise((resolve, reject) => {
     const sql = 'SELECT email FROM usuarios';
 
-    connection.query(sql, nombreUsuario, (error, results, fields) => {
+    connection.query(sql, (error, results, fields) => {
       if (error) {
         reject(error);
       }
