@@ -36,9 +36,9 @@ async function registerBook({
   }
 }
 
-async function findBook(tituloLibro,isbnLibro) {
+async function findBook(bookname) {
   try {
-    const resultados = await BookDAO.obtenerLibro(tituloLibro,isbnLibro);
+    const resultados = await BookDAO.obtenerLibro(bookname);
     return resultados;
   } catch (error) {
     console.error(error);
