@@ -186,4 +186,20 @@ router.post('/broadcast', (req, res) => {
     });
 });
 
+router.get('/allUsers', (req, res) => {
+  BusinessUser.getAllUsers()
+    .then((resultados) => {
+      console.log('Resultados:', resultados);
+      if (resultados.length > 0) {
+        res.status(200).json({ error: false, message: 'Consulta exitosa', usuarios: resultados });
+      } else {
+        res.status(200).json({ error: false, message: 'Nada que mostrar', usuarios: resultados });
+      }
+    })
+    .catch((error) => {
+      console.error('Error en la consulta', error);
+      res.status(500).json({ error: true, message: 'Error en la consulta' });
+    });
+});
+
 module.exports = router;

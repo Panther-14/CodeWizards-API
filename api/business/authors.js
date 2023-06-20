@@ -10,6 +10,17 @@ async function findAutorsBook(idLibro) {
   }
 }
 
+async function getAllAuthors() {
+  try {
+    const resultados = await AuthorDAO.obtenerTodosLosAutores();
+    return resultados;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
+
 module.exports = {
-  findAutorsBook
+  findAutorsBook,
+  getAllAuthors
 };

@@ -167,6 +167,19 @@ function eliminarUsuario(idUsuario) {
   });
 }
 
+function obtenerTodosLosUsuarios() {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT usuarios.idUsuario, username, nombre, apellidoPaterno, apellidoMaterno, email, tipoUsuario, COUNT(reportes.idUsuario) AS totalReportes FROM usuarios LEFT JOIN reportes ON usuarios.idUsuario = reportes.idUsuario WHERE eliminado = 0 GROUP BY usuarios.idUsuario;';
+
+    connection.query(sql, (error, results, fields) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(results);
+    });
+  });
+}
+
 module.exports = {
   accederUsuario,
   registroUsuario,
@@ -178,5 +191,6 @@ module.exports = {
   cambiarContrasenia,
   recuperarContrasenia,
   insertarContraseniaTemporal,
-  eliminarUsuario
+  eliminarUsuario,
+  obtenerTodosLosUsuarios
 };
