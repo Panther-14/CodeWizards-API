@@ -45,7 +45,7 @@ function eliminarResenia(idResenia) {
   });
 }
 
-function reportarResenia(idUsuario,idResenia){
+function reportarResenia(idUsuario, idResenia) {
   return new Promise((resolve, reject) => {
     const sql = 'INSERT INTO reportes (idResenia, idUsuario, fechaReporte) VALUES (?, ?, NOW());';
     const values = [idResenia, idUsuario];
@@ -60,10 +60,10 @@ function reportarResenia(idUsuario,idResenia){
   });
 }
 
-function obtenerReseniasLibro(idLibro){
+function obtenerReseniasLibro(idLibro) {
   return new Promise((resolve, reject) => {
-    const sql = 'SELECT resenias.idResenia, idLibro, idUsuario, descripcion, valoracion FROM resenias INNER JOIN	libros_resenias ON resenias.idResenia = libros_resenias.idResenia WHERE libros_resenias.idLibro = ?;';
-    const values = [idLibro];
+    const sql = 'SELECT resenias.idResenia, idLibro, idUsuario, descripcion, valoracion FROM resenias INNER JOIN	libros_resenias ON resenias.idResenia = libros_resenias.idResenia WHERE libros_resenias.idLibro = ? AND activa = ?;';
+    const values = [idLibro, 0];
 
     connection.query(sql, values, (error, results) => {
       if (error) {

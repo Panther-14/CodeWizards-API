@@ -16,6 +16,20 @@ function obtenerAutoresLibros(idLibro) {
   });
 }
 
+function obtenerTodosLosAutores() {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT * FROM autores;';
+
+    connection.query(sql, (error, results, fields) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(results);
+    });
+  });
+}
+
 module.exports = {
-  obtenerAutoresLibros
+  obtenerAutoresLibros,
+  obtenerTodosLosAutores
 }

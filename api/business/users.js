@@ -109,6 +109,17 @@ async function deleteUser(idUsuario) {
     return error;
   }
 }
+
+async function getAllUsers() {
+  try {
+    const resultados = await UserDAO.obtenerTodosLosUsuarios();
+    return resultados;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
+
 module.exports = {
   loginUser,
   registerUser,
@@ -120,5 +131,6 @@ module.exports = {
   getAllUsersEmail,
   getUserEmail,
   updateUser,
-  deleteUser
+  deleteUser,
+  getAllUsers
 };
